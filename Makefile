@@ -1,6 +1,6 @@
 CC=g++
 CCFLAGS=-std=c++11 -Werror -Wall -pedantic
-SOURCEFILES=main.cpp Huffman.cpp Huffman.hpp GenericNode.hpp CharNode.hpp ConnectionNode.hpp
+SOURCEFILES=main.cpp Huffman.cpp Huffman.hpp GenericNode.hpp CharNode.hpp ConnectionNode.hpp BinFileWriter.hpp
 
 huffman: $(SOURCEFILES)
 	$(CC) $(CCFLAGS) -g main.cpp Huffman.cpp -o $@

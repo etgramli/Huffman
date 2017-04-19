@@ -3,6 +3,7 @@
 #include "GenericNode.hpp"
 #include "CharNode.hpp"
 #include "Huffman.hpp"
+#include "BinFileWriter.hpp"
 #include <set>
 #include <map>
 #include <fstream>
@@ -71,35 +72,24 @@ GenericNode* HuffmannEcnoder::getHuffmanTree(std::map<char, int> charOccurences)
 	return *forest.begin(); // Return last Node = Root node
 }
 
-void HuffmannEcnoder::readHuffmanEncodingFile(std::string huffmanFileName) {
-	//
-	std::ifstream fileInput(huffmanFileName, std::ifstream::in);
-
-	std::string line;/*
-	while ( (line = fileInput.line()) != EOF) {
-		char c = line.get(0);
-		int i = 0;// Get int from line
-		encodingTable.insert(std::pair<char, int>(c, i));
-	}*/
-	
-	fileInput.close();
-}
-
 // Complete
 void HuffmannEcnoder::encodeFile(std::string inFileName, std::string outFileName) {
 	std::ifstream fileInput(inFileName, std::ifstream::in);
-	std::ofstream fileOutput(outFileName, std::ofstream::out);
+	//std::ofstream fileOutput(outFileName, std::ofstream::out);
+
+	BinFileWriter bfw(outFileName);
 
 	char c;
 	while (fileInput.get(c)) {
 		if (isprint(c)) {
 			// Write the character's symbol
-			fileOutput << encodingTable[c] << " ";
+			//fileOutput << encodingTable[c] << " ";
+			bfw.append(encodingTable[c]);
 		}
 	}
 
 	fileInput.close();
-	fileOutput.close();
+	//fileOutput.close();
 }
 
 // Complete

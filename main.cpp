@@ -4,8 +4,6 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "CharNode.hpp"
-#include "ConnectionNode.hpp"
 #include "Huffman.hpp"
 
 void printHelp();
@@ -73,7 +71,7 @@ int main(int argc, char* argv[]) {
 		// Keep file name to specified path
 	} else {
 		// Set file name to default path: <input file name>.out.txt
-		outFilePath = inFilePath + ".out.txt";
+		outFilePath = inFilePath + ".out";
 	}
 
 

@@ -11,14 +11,14 @@
 class HuffmannEcnoder {
 private:
     std::map<char, std::string> encodingTable;
-    
+
     /*
      * Creates CharNodes for all character in the map with its occurence
      * and creates a Huffman tree according to these.
      * The root node is returned.
      */
     GenericNode* getHuffmanTree(const std::map<char, int> charOccurences);
-    
+
     /*
      * Adds the symbols to the encoding table according to the tree
      * represented by the passed root node.
@@ -35,13 +35,7 @@ public:
 	 * Call this before encodeFile!!!
 	 */
 	void buildHuffmanTree(std::string inFileName);
-	
-	/*
-	 * Read a file with the encoding table that was created before and
-	 * saved to the drive. This replaces the call to buildHuffmanTree().
-	 */
-	void readHuffmanEncodingFile(std::string huffmanFileName);
-	
+
 	/*
 	 * Second pass:
 	 * Reads the input file again and creates the Huffman encoded
