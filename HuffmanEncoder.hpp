@@ -1,4 +1,4 @@
-//Huffmann.hpp
+//HuffmanEncoder.hpp
 
 #ifndef HUFFMANENCODER_H
 #define HUFFMANENCODER_H
@@ -8,7 +8,7 @@
 #include "GenericNode.hpp"
 
 
-class HuffmannEcnoder {
+class HuffmanEncoder {
 private:
     std::map<char, std::string> encodingTable;
 

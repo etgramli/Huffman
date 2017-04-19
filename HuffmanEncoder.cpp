@@ -1,8 +1,8 @@
-//huffmann.cpp
+//HuffmannEncoder.cpp
 
 #include "GenericNode.hpp"
 #include "CharNode.hpp"
-#include "Huffman.hpp"
+#include "HuffmanEncoder.hpp"
 #include "BinFileWriter.hpp"
 #include <set>
 #include <map>
@@ -18,7 +18,7 @@ struct nodecomp {
 };
 
 // Complete
-void HuffmannEcnoder::buildHuffmanTree(std::string inFileName) {
+void HuffmanEncoder::buildHuffmanTree(std::string inFileName) {
 	// 1: Count characters
 	std::ifstream fileInput(inFileName, std::ifstream::in);
 
@@ -46,12 +46,12 @@ void HuffmannEcnoder::buildHuffmanTree(std::string inFileName) {
 	delete root;
 }
 
-void HuffmannEcnoder::addToEncodingTable(GenericNode *root) {
+void HuffmanEncoder::addToEncodingTable(GenericNode *root) {
 	root->getEncodingTable("", &encodingTable);
 }
 
 // Complete
-GenericNode* HuffmannEcnoder::getHuffmanTree(std::map<char, int> charOccurences) {
+GenericNode* HuffmanEncoder::getHuffmanTree(std::map<char, int> charOccurences) {
 	std::multiset<GenericNode *, nodecomp> forest;
 
 	// Create a (leaf) node for all characters
@@ -73,7 +73,7 @@ GenericNode* HuffmannEcnoder::getHuffmanTree(std::map<char, int> charOccurences)
 }
 
 // Complete
-void HuffmannEcnoder::encodeFile(std::string inFileName, std::string outFileName) {
+void HuffmanEncoder::encodeFile(std::string inFileName, std::string outFileName) {
 	std::ifstream fileInput(inFileName, std::ifstream::in);
 	//std::ofstream fileOutput(outFileName, std::ofstream::out);
 
@@ -93,7 +93,7 @@ void HuffmannEcnoder::encodeFile(std::string inFileName, std::string outFileName
 }
 
 // Complete
-void HuffmannEcnoder::writeHuffmanCodeToFile(std::string huffmanFileName) {
+void HuffmanEncoder::writeHuffmanCodeToFile(std::string huffmanFileName) {
 	std::ofstream fileOutput(huffmanFileName, std::ofstream::out);
 
 	for (std::pair<char, std::string> pair : encodingTable) {
