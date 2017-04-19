@@ -1,18 +1,20 @@
 CC=g++
 CCFLAGS=-std=c++11 -Werror -Wall -pedantic
-SOURCEFILES=main.cpp HuffmanEncoder.cpp HuffmanEncoder.hpp GenericNode.hpp CharNode.hpp ConnectionNode.hpp BinFileWriter.hpp
+HEADERS=HuffmanEncoder.hpp GenericNode.hpp CharNode.hpp ConnectionNode.hpp BinFileWriter.hpp
+SOURCES=main.cpp HuffmanEncoder.cpp
+ALLFILES=$(HEADERS) $(SOURCES)
 
-huffman: $(SOURCEFILES)
-	$(CC) $(CCFLAGS) -g main.cpp HuffmanEncoder.cpp -o $@
+huffman: $(ALLFILES)
+	$(CC) $(CCFLAGS) -g $(SOURCES) -o $@
 
-huffmanO3: $(SOURCEFILES)
-	$(CC) $(CCFLAGS) -O3 main.cpp HuffmanEncoder.cpp -o $@
+huffmanO3: $(ALLFILES)
+	$(CC) $(CCFLAGS) -O3 $(SOURCES) -o $@
 
-huffmanOs: $(SOURCEFILES)
-	$(CC) $(CCFLAGS) -Os main.cpp HuffmanEncoder.cpp -o $@
+huffmanOs: $(ALLFILES)
+	$(CC) $(CCFLAGS) -Os $(SOURCES) -o $@
 
-huffmanClang: $(SOURCEFILES)
-	clang++ $(CCFLAGS) main.cpp HuffmanEncoder.cpp -o $@
+huffmanClang: $(ALLFILES)
+	clang++ $(CCFLAGS) $(SOURCES) -o $@
 
 all: huffman huffmanO3 huffmanOs huffmanClang
 
