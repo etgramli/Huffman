@@ -13,7 +13,7 @@
 
 class BinFileWriter {
 private:
-    const int magicNum = 0xEF;
+    const int magicNum = 0xEF;	// Stands for "Eti's Format"
 
     std::ofstream outFile;
 
