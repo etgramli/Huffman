@@ -1,6 +1,6 @@
 CC=g++
 CCFLAGS=-std=c++11 -Werror -Wall -pedantic
-HEADERS=HuffmanEncoder.hpp GenericNode.hpp CharNode.hpp ConnectionNode.hpp BinFileWriter.hpp
+HEADERS=HuffmanEncoder.hpp HuffmanDecoder.hpp GenericNode.hpp CharNode.hpp ConnectionNode.hpp BinFileWriter.hpp BinFileReader.hpp
 SOURCES=main.cpp HuffmanEncoder.cpp
 ALLFILES=$(HEADERS) $(SOURCES)
 

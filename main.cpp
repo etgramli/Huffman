@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #include "HuffmanEncoder.hpp"
+#include "HuffmanDecoder.hpp"
 
 void printHelp();
 
@@ -78,6 +79,7 @@ int main(int argc, char* argv[]) {
     HuffmanEncoder huffEnc;
     // Build Huffman tree & Generate encoding table
     huffEnc.buildHuffmanTree(inFilePath);
+    
     // write encoding table to file
     huffEnc.writeHuffmanCodeToFile(huffmanFilePath);
     
