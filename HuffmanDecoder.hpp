@@ -3,12 +3,21 @@
 #ifndef HUFFMANDECODER_H
 #define HUFFMANDECODER_H
 
-#include "BinFileReader.hpp"
+
+#include <map>
+#include <vector>
+#include <string>
+
+#include "GenericNode.hpp"
 
 
-class HuffmannDecoder {
+class HuffmanDecoder {
 private:
+	std::map<std::vector<bool>, char> encodingTable;
 
+	// Reads and parses the file with the huffman code table and writes
+	// it to the encodingTable.
+	void readHuffmanCodeFile(std::string huffmanCodeFile);
 
 public:
 	/*

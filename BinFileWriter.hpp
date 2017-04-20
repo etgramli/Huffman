@@ -8,12 +8,13 @@
 #include <string>
 #include <vector>
 #include <limits>
+#include <cmath>
 
 
 
 class BinFileWriter {
 private:
-    const int magicNum = 0xEF;	// Stands for "Eti's Format"
+    const unsigned char magicNum = 0xEF;	// Stands for "Eti's Format"
 
     std::ofstream outFile;
 
@@ -23,7 +24,7 @@ private:
     void writeToFile() {
 		// Write magic number
         outFile.write(reinterpret_cast<const char *>(&magicNum),
-					  sizeof(int));
+					  sizeof(unsigned char));
 
 		// Write length of file
 		size_t lengthOfMessage = message.size();
@@ -31,7 +32,7 @@ private:
 					  sizeof(size_t));
 
 		// Write memory to file
-		size_t numBytes = message.size() / std::numeric_limits<unsigned char>::digits + 1;
+		size_t numBytes = std::ceil((float) message.size() / std::numeric_limits<unsigned char>::digits);
 		char *mem = new char[numBytes]();
 		getMessageAsCharArray(mem);
 		

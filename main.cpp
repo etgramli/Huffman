@@ -10,23 +10,24 @@
 void printHelp();
 
 int main(int argc, char* argv[]) {
+	bool dFlag = false;
     bool iFlag = false;
     bool oFlag = false;
     bool cFlag = false;
-    bool sFlag = false;
     
     std::string inFilePath = "";
     std::string huffmanFilePath = "";
     std::string outFilePath = "";
     
     char optionChar;
-    while( (optionChar = getopt(argc, argv, "hi:c:o:s")) != -1 )
-    {
-        switch(optionChar)
-        {
+    while( (optionChar = getopt(argc, argv, "hdi:c:o:")) != -1 ) {
+        switch(optionChar) {
         case 'h':
             printHelp();
             return 0;
+            break;
+        case 'd':
+            dFlag = true;
             break;
         case 'i':
             iFlag = true;
@@ -39,9 +40,6 @@ int main(int argc, char* argv[]) {
         case 'o':
             oFlag = true;
 			outFilePath = optarg;
-            break;
-        case 's':
-            sFlag = true;
             break;
         case '?':
             if (isprint(optopt)) {
@@ -57,14 +55,13 @@ int main(int argc, char* argv[]) {
     }
 
 
-    if (!iFlag || inFilePath.empty()) {
+    if (!iFlag) {
 		std::cerr << "No input file specified! Aborting." << std::endl;
 		return -1;
 	}
 	if (cFlag) {
 		// Keep the specified file name
-	} else if (!sFlag) {
-		// Set the default file name
+	} else {
 		huffmanFilePath = inFilePath + ".huff";
 	}
 	// Open the huffman code file (for input if file exists/output if file does not exist)
@@ -76,29 +73,36 @@ int main(int argc, char* argv[]) {
 	}
 
 
-    HuffmanEncoder huffEnc;
-    // Build Huffman tree & Generate encoding table
-    huffEnc.buildHuffmanTree(inFilePath);
+
+	if (dFlag) {
+		HuffmanDecoder huffDec;
+		huffDec.decodeFile(huffmanFilePath, inFilePath, outFilePath);
+	} else {
+
+		HuffmanEncoder huffEnc;
+		// Build Huffman tree & Generate encoding table
+		huffEnc.buildHuffmanTree(inFilePath);
+
+		// write encoding table to file
+		huffEnc.writeHuffmanCodeToFile(huffmanFilePath);
     
-    // write encoding table to file
-    huffEnc.writeHuffmanCodeToFile(huffmanFilePath);
-    
-    // Convert the input file to huffman code
-    huffEnc.encodeFile(inFilePath, outFilePath);
-    
-    
+		// Convert the input file to huffman code
+		huffEnc.encodeFile(inFilePath, outFilePath);
+    }
+
     return 0;
 }
 
+
+
 void printHelp() {
 	std::cout << std::endl << "Tengo un ordenator portátil." << std::endl;
-	std::cout << std::endl << "This program creates a Huffman code for a specified input file." << std::endl;
-	std::cout << "If only the input is specified, it is a 2-pass coding:" << std::endl;
-	std::cout << "1st is Building the Huffman tree and the 2nd is ." << std::endl;
+	std::cout << std::endl << "This program creates a Huffman code for a specified input file" << std::endl;
+	std::cout << "and the encodig table in a separate file." << std::endl;
+	std::cout << "Alternatively it restores the original message with the generated files." << std::endl << std::endl;
 	std::cout << "-h\t\t Print this help" << std::endl;
+	std::cout << "-d\t\t Decode file instead of encoding" << std::endl;
 	std::cout << "-i <file>\t The file to create a Huffman Code for" << std::endl;
 	std::cout << "-c <file>\t The file with the Huffman Code for the input file;" << std::endl;
-	std::cout << "\t\t results in only the 2nd pass" << std::endl;
 	std::cout << "-o <file>\t The file to to save the Huffman Code in" << std::endl;
-	std::cout << "-s\t\t Silent; do not create a Huffman code file" << std::endl;
 }
