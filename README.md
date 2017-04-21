@@ -1,8 +1,11 @@
-# Huffman Encoder
+# Huffman Encoder and Decoder
+## Huffman Encoder
 This is a program that encodes a text file to Huffman code.
-It only processes printable characters.
+It creates a huffman code for all distinct characters and writes both to
+an encoding table file and the huffman codes of the message characters
+to a binary file.
 
-## What it does
+### What it does
 For all printable characters the encoder creates a leaf node with the
 character's frequency. Then it takes recursively the two characters with
 the lowest frequencies and creates a Connection node with the previous
@@ -17,34 +20,44 @@ Then, in the 2nd pass, the text file will be read again, character by
 character, and the Huffman codes for the character will be written to
 the output file.
 
+## Huffman Decoder
+The decoder needs the file with the encoding table and the encoded
+message file (ending with .out).
+It reads the bits of the message file and replaces them with the fitting
+characters to the found huffman code (does not build the huffman code
+tree, only constructs a map of huffman code to char).
 
-## Usage
+### Important note
+If decoding, both -i and -c parameters must be passed.
 
-### Compilation
 
-#### make huffman
+# Usage
+
+## Compilation
+
+### make huffman
 Creates an executable with debugging symbols (-g). Should only be used
 for testing.
 
-#### make huffmanO3
+### make huffmanO3
 Creates an executable with strongest optimizations. Can be used for
 creating the final exectuable for normal usage.
 
-#### make huffmanOs
+### make huffmanOs
 Creates an executable optimized for size. Can be used for creating the
 final exectuable for normal usage.
 
-#### make huffmanClang
+### make huffmanClang
 Additional target that was used to print additional warnings and errors
 from the clang compiler, to find more errors (useful to find UB).
 
-#### make all
+### make all
 Makes all targets above.
 
 
-### Programm call
+## Programm call
 The program takes following parameters:
-#### Parameters:
+### Parameters:
 - -h
 Print help.
 
@@ -62,7 +75,7 @@ Silent; do not create a Huffman code file
 
 
 
-## Hints
+# Hints
 - Only text files supported for endcoding
 - Currently only printable characters are processed
 - Own binary format
