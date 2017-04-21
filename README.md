@@ -77,5 +77,5 @@ Silent; do not create a Huffman code file
 
 # Hints
 - Only text files supported for endcoding
-- Currently only printable characters are processed
+- Decoded text file is exactly the same as the original file (tested using diff)
 - Own binary format
