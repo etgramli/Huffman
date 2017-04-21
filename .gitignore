@@ -1,6 +1,7 @@
 *.gch
 *.txt
-a.out
+*.huff
+*.out
 huffman
 huffmanClang
 huffmanO3
