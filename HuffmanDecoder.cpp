@@ -1,6 +1,5 @@
 //HuffmanDecoder.cpp
 
-#include <iostream>
 #include <vector>
 #include <map>
 
@@ -53,13 +52,6 @@ void HuffmanDecoder::decodeFile(std::string huffmanCodeFile, std::string huffman
 
 	BinFileReader bfr(huffmanEncodedFile);
 	std::ofstream outputFile(outFile, std::ios::out);
-
-	for (std::pair<std::vector<bool>, char> p : encodingTable) {
-		for (bool b : p.first) {
-			std::cout << b;
-		}
-		std::cout << " " << p.second << std::endl;
-	}
 
 	// Loop through the encoded file and print according character
 	std::vector<bool> currentHuffCode;

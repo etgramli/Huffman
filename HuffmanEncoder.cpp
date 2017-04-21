@@ -17,7 +17,6 @@ struct nodecomp {
 	}
 };
 
-// Complete
 void HuffmanEncoder::buildHuffmanTree(std::string inFileName) {
 	// 1: Count characters
 	std::ifstream fileInput(inFileName, std::ifstream::in);
@@ -26,11 +25,11 @@ void HuffmanEncoder::buildHuffmanTree(std::string inFileName) {
 
 	char c;
 	while (fileInput.get(c)) {
-			if (occurence.find(c) != occurence.end()) {
-				occurence[c] = occurence[c] + 1;
-			} else {
-				occurence.emplace(c, 1);
-			}
+		if (occurence.find(c) != occurence.end()) {
+			occurence[c] = occurence[c] + 1;
+		} else {
+			occurence.emplace(c, 1);
+		}
 	}
 	fileInput.close();
 
@@ -48,7 +47,6 @@ void HuffmanEncoder::addToEncodingTable(GenericNode *root) {
 	root->getEncodingTable("", &encodingTable);
 }
 
-// Complete
 GenericNode* HuffmanEncoder::getHuffmanTree(std::map<char, int> charOccurences) {
 	std::multiset<GenericNode *, nodecomp> forest;
 
@@ -79,16 +77,15 @@ void HuffmanEncoder::encodeFile(std::string inFileName, std::string outFileName)
 
 	char c;
 	while (fileInput.get(c)) {
-			// Write the character's symbol
-			//fileOutput << encodingTable[c] << " ";
-			bfw.append(encodingTable[c]);
+		// Write the character's symbol
+		//fileOutput << encodingTable[c] << " ";
+		bfw.append(encodingTable[c]);
 	}
 
 	fileInput.close();
 	//fileOutput.close();
 }
 
-// Complete
 void HuffmanEncoder::writeHuffmanCodeToFile(std::string huffmanFileName) {
 	std::ofstream fileOutput(huffmanFileName, std::ofstream::out);
 
