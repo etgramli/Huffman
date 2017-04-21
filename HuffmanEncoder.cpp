@@ -82,7 +82,7 @@ void HuffmanEncoder::buildHuffmanTree(std::string inFileName) {
 }
 
 void HuffmanEncoder::addToEncodingTable(GenericNode *root) {
-	root->getEncodingTable("", &encodingTable);
+	root->getEncodingTable(std::vector<bool>(), &encodingTable);
 }
 
 GenericNode* HuffmanEncoder::getHuffmanTree(std::map<char, int> charOccurences) {
@@ -137,8 +137,12 @@ void HuffmanEncoder::encodeFile(std::string inFileName, std::string outFileName)
 void HuffmanEncoder::writeHuffmanCodeToFile(std::string huffmanFileName) {
 	std::ofstream fileOutput(huffmanFileName, std::ofstream::out);
 
-	for (std::pair<char, std::string> pair : encodingTable) {
-		fileOutput << pair.first << " " << pair.second << std::endl;
+	for (std::pair<char, std::vector<bool>> pair : encodingTable) {
+		fileOutput << pair.first << " ";
+		for (bool b : pair.second) {
+			fileOutput << b;
+		}
+		fileOutput << std::endl;
 	}
 
 	fileOutput.close();

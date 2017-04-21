@@ -4,13 +4,14 @@
 #define HUFFMANENCODER_H
 
 #include <map>
+#include <vector>
 
 #include "GenericNode.hpp"
 
 
 class HuffmanEncoder {
 private:
-    std::map<char, std::string> encodingTable;
+    std::map<char, std::vector<bool>> encodingTable;
 
 	/*
 	 * Calculates the average code word length for the input message

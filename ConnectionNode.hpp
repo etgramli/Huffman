@@ -33,10 +33,16 @@ public:
 	}
 
 
-	void getEncodingTable(const std::string symbolString,
-						  std::map<char, std::string> *map) const {
-		lchild->getEncodingTable(symbolString + "0", map);
-		rchild->getEncodingTable(symbolString + "1", map);
+	void getEncodingTable(const std::vector<bool> symbolVector,
+						  std::map<char, std::vector<bool>> *map) const {
+		std::vector<bool> lVector(symbolVector);
+		lVector.push_back(false);
+
+		std::vector<bool> rVector(symbolVector);
+		rVector.push_back(true);
+
+		lchild->getEncodingTable(lVector, map);
+		rchild->getEncodingTable(rVector, map);
 	}
 
 };

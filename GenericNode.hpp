@@ -4,6 +4,7 @@
 #define GENERICNODE_H
 
 #include <map>
+#include <vector>
 #include <string>
 
 
@@ -21,8 +22,8 @@ public:
 		return occurence;
 	}
 
-	virtual void getEncodingTable(const std::string symbolString,
-								  std::map<char, std::string> *map) const = 0;
+	virtual void getEncodingTable(const std::vector<bool> symbolVector,
+								  std::map<char, std::vector<bool>> *map) const = 0;
 
 
 	virtual bool operator< (const GenericNode &otherNode) const {

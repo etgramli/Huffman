@@ -23,9 +23,9 @@ public:
 	}
 
 
-	void getEncodingTable(const std::string symbolString,
-						  std::map<char, std::string> *map) const {
-		(*map).insert(std::pair<char, std::string>(representedCharacter, symbolString));
+	void getEncodingTable(const std::vector<bool> symbolVector,
+						  std::map<char, std::vector<bool>> *map) const {
+		(*map).emplace(representedCharacter, symbolVector);
 	}
 
 };
