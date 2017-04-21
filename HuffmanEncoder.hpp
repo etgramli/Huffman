@@ -12,6 +12,19 @@ class HuffmanEncoder {
 private:
     std::map<char, std::string> encodingTable;
 
+	/*
+	 * Calculates the average code word length for the input message
+	 * and its huffman code.
+	 * Call AFTER buildHuffmanTree() !!!
+	 */
+	double avgCodeWordLenth(const std::map<char, int> occurences,
+							unsigned int totalAmount);
+	
+	// Calculates the entropy
+	double getEntropy(const std::map<char, int> occurences,
+					  unsigned int totalAmount) const;
+
+
     /*
      * Creates CharNodes for all character in the map with its occurence
      * and creates a Huffman tree according to these.
