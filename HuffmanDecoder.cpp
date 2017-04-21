@@ -7,7 +7,6 @@
 
 #include <fstream>
 #include <string>
-#include <sstream>
 
 #include "HuffmanDecoder.hpp"
 #include "BinFileReader.hpp"
@@ -18,24 +17,35 @@ void HuffmanDecoder::readHuffmanCodeFile(std::string huffmanCodeFile) {
 	// Loop through lines
 	std::string line;
 	while (std::getline(inFile, line)) {
-		std::istringstream iss(line);
-		if (line.empty()) {
-			break;
-		}
-
-		char c = line[0];
-		
+		char c;
 		std::vector<bool> bits;
-		for (unsigned int l = 2; l < line.size(); ++l) {
-			if (line[l] == '0') {
-				bits.push_back(false);
-			} else {
-				bits.push_back(true);
-			}
-		}
 
+		// NEED SPECIAL BEHAVIOUR FOR NEWLINE
+		if (line.empty()) {
+			c = '\n';
+			if (!std::getline(inFile, line)) {
+				break;	// EOF
+			}
+			bits = getBitVector(line, 1);
+		} else {	// Normal behaviour
+			c = line[0];
+			bits = getBitVector(line, 2);
+		}
 		encodingTable.emplace(bits, c);
 	}
+}
+
+std::vector<bool> HuffmanDecoder::getBitVector(std::string str,
+											   unsigned int offset) const {
+	std::vector<bool> bits;
+	for (unsigned int i = offset; i < str.size(); ++i) {
+		if (str[i] == '0') {
+			bits.push_back(false);
+		} else {
+			bits.push_back(true);
+		}
+	}
+	return bits;
 }
 
 void HuffmanDecoder::decodeFile(std::string huffmanCodeFile, std::string huffmanEncodedFile, std::string outFile) {

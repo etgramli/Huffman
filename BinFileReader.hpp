@@ -3,7 +3,6 @@
 #ifndef BINFILEREADER_H
 #define BINFILEREADER_H
 
-#include <iostream>
 
 #include <fstream>
 #include <string>
@@ -20,21 +19,29 @@ private:
 	// Converts the memory to a vector of bools (directly to message)
 	void parseMessage(char *mem, size_t lengthInBits) {
 		char *currentByte = mem;
-		for (unsigned int bits = 0; bits < lengthInBits; ++bits, ++currentByte) {
-			// Get bits and add to vector
-			for (bool b : parseChar(*currentByte)) {
+		unsigned int bits = 0;
+
+		while (bits < lengthInBits) {
+			unsigned int bitsToRead = std::min((unsigned long int) std::numeric_limits<unsigned char>::digits, lengthInBits-bits);
+
+			for (bool b : parseChar(*currentByte, bitsToRead)) {
 				message.push_back(b);
 			}
+
+			bits += bitsToRead;
+			++currentByte;
 		}
 	}
 
-	std::vector<bool> parseChar(const char c) const {
+	std::vector<bool> parseChar(const char c, const size_t numBits) const {
 		std::vector<bool> vec;
 		unsigned char bitMask = pow(2, std::numeric_limits<unsigned char>::digits - 1);
 
-		while (bitMask != 0) {
+		size_t counter = 0;
+		while (bitMask != 0 && counter < numBits) {
 			vec.push_back(bitMask & c);
 			bitMask >>= 1;
+			++counter;
 		}
 
 		return vec;
@@ -50,7 +57,6 @@ public:
         unsigned char magic = 0;
         inputFile.read(reinterpret_cast<char *>(&magic), sizeof(unsigned char));
         if (magicNum != magic) {
-			std::cout << (int)magic << " " << sizeof(unsigned char) << std::endl;
 			inputFile.close();
 			throw "File format not recognized";
 		}
@@ -61,11 +67,13 @@ public:
 					   sizeof(size_t));
 
         // Read whole message to vector
-        char *mem = new char[lengthOfMessage]();
-        inputFile.read(mem, lengthOfMessage);
+        size_t bytesToRead = std::ceil((float)lengthOfMessage / std::numeric_limits<unsigned char>::digits);
+        char *mem = new char[bytesToRead]();
+        inputFile.read(mem, bytesToRead);
         
         size_t readBytes = inputFile.gcount(); // Check how many bytes actually read
-        parseMessage(mem, readBytes);
+        size_t actualBitsOfMessage = std::min(lengthOfMessage, readBytes * 8);
+        parseMessage(mem, actualBitsOfMessage);
         delete[] mem;
         
         inputFile.close();

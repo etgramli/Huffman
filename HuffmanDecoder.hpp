@@ -19,6 +19,9 @@ private:
 	// it to the encodingTable.
 	void readHuffmanCodeFile(std::string huffmanCodeFile);
 
+	std::vector<bool> getBitVector(std::string str, unsigned int offset) const;
+
+
 public:
 	/*
 	 * Reads the encoding table and decodes the text file accordingly.

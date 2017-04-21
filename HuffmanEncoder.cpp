@@ -26,13 +26,11 @@ void HuffmanEncoder::buildHuffmanTree(std::string inFileName) {
 
 	char c;
 	while (fileInput.get(c)) {
-		if (isprint(c)) {
 			if (occurence.find(c) != occurence.end()) {
 				occurence[c] = occurence[c] + 1;
 			} else {
 				occurence.emplace(c, 1);
 			}
-		}
 	}
 	fileInput.close();
 
@@ -81,11 +79,9 @@ void HuffmanEncoder::encodeFile(std::string inFileName, std::string outFileName)
 
 	char c;
 	while (fileInput.get(c)) {
-		if (isprint(c)) {
 			// Write the character's symbol
 			//fileOutput << encodingTable[c] << " ";
 			bfw.append(encodingTable[c]);
-		}
 	}
 
 	fileInput.close();
