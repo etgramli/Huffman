@@ -5,7 +5,6 @@
 #include "HuffmanEncoder.hpp"
 #include "BinFileWriter.hpp"
 #include <set>
-#include <map>
 #include <unordered_map>
 #include <iostream>
 #include <fstream>

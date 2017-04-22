@@ -3,7 +3,7 @@
 #ifndef GENERICNODE_H
 #define GENERICNODE_H
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <string>
 
@@ -23,7 +23,7 @@ public:
 	}
 
 	virtual void getEncodingTable(const std::vector<bool> symbolVector,
-								  std::map<char, std::vector<bool>> *map) const = 0;
+								  std::unordered_map<char, std::vector<bool>> *map) const = 0;
 
 
 	virtual bool operator< (const GenericNode &otherNode) const {

@@ -4,7 +4,7 @@
 #ifndef CHARNODE_H
 #define CHARNODE_H
 
-#include <map>
+#include <unordered_map>
 #include <string>
 
 #include "GenericNode.hpp"
@@ -24,7 +24,7 @@ public:
 
 
 	void getEncodingTable(const std::vector<bool> symbolVector,
-						  std::map<char, std::vector<bool>> *map) const {
+						  std::unordered_map<char, std::vector<bool>> *map) const {
 		(*map).emplace(representedCharacter, symbolVector);
 	}
 

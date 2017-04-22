@@ -12,7 +12,7 @@
 
 class HuffmanEncoder {
 private:
-    std::map<char, std::vector<bool>> encodingTable;
+    std::unordered_map<char, std::vector<bool>> encodingTable;
 
 	/*
 	 * Calculates the average code word length for the input message

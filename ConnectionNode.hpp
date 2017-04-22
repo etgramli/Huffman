@@ -5,6 +5,7 @@
 
 
 #include "GenericNode.hpp"
+#include <unordered_map>
 
 
 class ConnectionNode : public GenericNode {
@@ -34,7 +35,7 @@ public:
 
 
 	void getEncodingTable(const std::vector<bool> symbolVector,
-						  std::map<char, std::vector<bool>> *map) const {
+						  std::unordered_map<char, std::vector<bool>> *map) const {
 		std::vector<bool> lVector(symbolVector);
 		lVector.push_back(false);
 
