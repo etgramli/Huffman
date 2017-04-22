@@ -48,7 +48,7 @@ double HuffmanEncoder::getEntropy(const std::unordered_map<char, int> occurences
 }
 
 
-void HuffmanEncoder::buildHuffmanTree(std::string inFileName) {
+void HuffmanEncoder::buildHuffmanTree(const std::string inFileName) {
 	// 1: Count characters
 	std::ifstream fileInput(inFileName, std::ifstream::in);
 
@@ -77,11 +77,11 @@ void HuffmanEncoder::buildHuffmanTree(std::string inFileName) {
 	delete root;
 }
 
-void HuffmanEncoder::addToEncodingTable(GenericNode *root) {
+void HuffmanEncoder::addToEncodingTable(GenericNode *const root) {
 	root->getEncodingTable(std::vector<bool>(), &encodingTable);
 }
 
-GenericNode* HuffmanEncoder::getHuffmanTree(std::unordered_map<char, int> charOccurences) {
+GenericNode* HuffmanEncoder::getHuffmanTree(const std::unordered_map<char, int> charOccurences) {
 	std::multiset<GenericNode *, nodecomp> forest;
 
 	// Create a (leaf) node for all characters
@@ -103,7 +103,7 @@ GenericNode* HuffmanEncoder::getHuffmanTree(std::unordered_map<char, int> charOc
 }
 
 // Complete
-void HuffmanEncoder::encodeFile(std::string inFileName, std::string outFileName) {
+void HuffmanEncoder::encodeFile(const std::string inFileName, const std::string outFileName) {
 	std::ifstream fileInput(inFileName, std::ifstream::in);
 	//std::ofstream fileOutput(outFileName, std::ofstream::out);
 
@@ -132,7 +132,7 @@ void HuffmanEncoder::encodeFile(std::string inFileName, std::string outFileName)
 	//fileOutput.close();
 }
 
-void HuffmanEncoder::writeHuffmanCodeToFile(std::string huffmanFileName) {
+void HuffmanEncoder::writeHuffmanCodeToFile(const std::string huffmanFileName) {
 	std::ofstream fileOutput(huffmanFileName, std::ofstream::out);
 
 	for (std::pair<char, std::vector<bool>> pair : encodingTable) {

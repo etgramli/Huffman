@@ -40,7 +40,7 @@ private:
      *
      * Writes the encoding table directly to the member variable.
      */
-    void addToEncodingTable(GenericNode *root);
+    void addToEncodingTable(GenericNode * const root);
 
 public:
 	/* First pass:
@@ -49,7 +49,7 @@ public:
 	 * 
 	 * Call this before encodeFile!!!
 	 */
-	void buildHuffmanTree(std::string inFileName);
+	void buildHuffmanTree(const std::string inFileName);
 
 	/*
 	 * Second pass:
@@ -59,7 +59,7 @@ public:
 	 * 
 	 * This method assumes that buildHuffmanTree was executed before!
 	 */
-    void encodeFile(std::string inFileName, std::string outFileName);
+    void encodeFile(const std::string inFileName, const std::string outFileName);
 
 	/*
 	 * This writes the huffman code (built by buildHuffmanTree()) to the
@@ -68,7 +68,7 @@ public:
 	 * Like encodeFile() this method assumest that buildHuffmanTree()
 	 * was called before.
 	 */
-	void writeHuffmanCodeToFile(std::string huffmanFileName);
+	void writeHuffmanCodeToFile(const std::string huffmanFileName);
 };
 
 

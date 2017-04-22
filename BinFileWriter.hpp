@@ -4,7 +4,6 @@
 #define BINFILEWRITER_H
 
 
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -48,7 +47,7 @@ private:
 	}
 
 
-	void getMessageAsCharArray(char *mem) {
+	void getMessageAsCharArray(char * const mem) {
 		unsigned int counter = 0;
 		char *currentChar = mem;
 
@@ -70,7 +69,7 @@ private:
 		}
 	}
 
-    void appendToChar(char *c, const bool bit) {
+    void appendToChar(char * const c, const bool bit) {
 		(*c) <<= 1;
 		if (bit) {
 			++(*c);
@@ -81,7 +80,7 @@ private:
 public:
     BinFileWriter() = delete;
 
-    BinFileWriter(std::string fileName)
+    BinFileWriter(const std::string fileName)
             : outFile(fileName, std::ios::out | std::ios::binary) {
 		messagePtr = std::vector<std::vector<bool> *>();
     }
@@ -92,7 +91,7 @@ public:
     }
 
 
-	void append(std::vector<bool> *bits) {
+	void append(std::vector<bool> * const bits) {
 		messagePtr.push_back(bits);
 	}
 };
