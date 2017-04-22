@@ -6,6 +6,7 @@
 #include "BinFileWriter.hpp"
 #include <set>
 #include <map>
+#include <unordered_map>
 #include <iostream>
 #include <fstream>
 #include <limits>
@@ -21,7 +22,7 @@ struct nodecomp {
 };
 
 
-double HuffmanEncoder::avgCodeWordLenth(const std::map<char, int> occurences,
+double HuffmanEncoder::avgCodeWordLenth(const std::unordered_map<char, int> occurences,
 										unsigned int totalAmount) {
 	// Calculate the average code word length
 	double avgCodeWordLenth = 0.0;
@@ -35,7 +36,7 @@ double HuffmanEncoder::avgCodeWordLenth(const std::map<char, int> occurences,
 	return avgCodeWordLenth;
 }
 
-double HuffmanEncoder::getEntropy(const std::map<char, int> occurences,
+double HuffmanEncoder::getEntropy(const std::unordered_map<char, int> occurences,
 								  unsigned int totalAmount) const {
 	double entropy = 0.0;
 
@@ -53,15 +54,11 @@ void HuffmanEncoder::buildHuffmanTree(std::string inFileName) {
 	std::ifstream fileInput(inFileName, std::ifstream::in);
 
 	unsigned int totalAmount = 0;
-	std::map<char, int> occurence;
+	std::unordered_map<char, int> occurence;
 
 	char c;
 	while (fileInput.get(c)) {
-		if (occurence.find(c) != occurence.end()) {
-			occurence[c] = occurence[c] + 1;
-		} else {
-			occurence.emplace(c, 1);
-		}
+		++occurence[c];
 		++totalAmount;
 	}
 	fileInput.close();
@@ -85,7 +82,7 @@ void HuffmanEncoder::addToEncodingTable(GenericNode *root) {
 	root->getEncodingTable(std::vector<bool>(), &encodingTable);
 }
 
-GenericNode* HuffmanEncoder::getHuffmanTree(std::map<char, int> charOccurences) {
+GenericNode* HuffmanEncoder::getHuffmanTree(std::unordered_map<char, int> charOccurences) {
 	std::multiset<GenericNode *, nodecomp> forest;
 
 	// Create a (leaf) node for all characters
@@ -120,11 +117,13 @@ void HuffmanEncoder::encodeFile(std::string inFileName, std::string outFileName)
 
 	char c;
 	while (fileInput.get(c)) {
-		originalFileBits += std::numeric_limits<unsigned char>::digits;
-		huffmanFileBits += encodingTable[c].size();
 		// Write the character's symbol
 		//fileOutput << encodingTable[c] << " ";
-		bfw.append(encodingTable[c]);
+		std::vector<bool> *cBV = &encodingTable[c];
+		bfw.append(*cBV);
+		
+		originalFileBits += std::numeric_limits<unsigned char>::digits;
+		huffmanFileBits += (*cBV).size();
 	}
 
 	std::cout << "out/in:\t\t\t" << (double)huffmanFileBits/originalFileBits << std::endl;

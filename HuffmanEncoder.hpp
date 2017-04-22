@@ -4,6 +4,7 @@
 #define HUFFMANENCODER_H
 
 #include <map>
+#include <unordered_map>
 #include <vector>
 
 #include "GenericNode.hpp"
@@ -18,11 +19,11 @@ private:
 	 * and its huffman code.
 	 * Call AFTER buildHuffmanTree() !!!
 	 */
-	double avgCodeWordLenth(const std::map<char, int> occurences,
+	double avgCodeWordLenth(const std::unordered_map<char, int> occurences,
 							unsigned int totalAmount);
 	
 	// Calculates the entropy
-	double getEntropy(const std::map<char, int> occurences,
+	double getEntropy(const std::unordered_map<char, int> occurences,
 					  unsigned int totalAmount) const;
 
 
@@ -31,7 +32,7 @@ private:
      * and creates a Huffman tree according to these.
      * The root node is returned.
      */
-    GenericNode* getHuffmanTree(const std::map<char, int> charOccurences);
+    GenericNode* getHuffmanTree(const std::unordered_map<char, int> charOccurences);
 
     /*
      * Adds the symbols to the encoding table according to the tree
