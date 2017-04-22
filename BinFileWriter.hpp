@@ -4,6 +4,7 @@
 #define BINFILEWRITER_H
 
 
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -18,7 +19,7 @@ private:
 
     std::ofstream outFile;
 
-    std::vector<bool> message;
+    std::vector<std::vector<bool> *> messagePtr;
 
 
     void writeToFile() {
@@ -26,13 +27,18 @@ private:
         outFile.write(reinterpret_cast<const char *>(&magicNum),
 					  sizeof(unsigned char));
 
+		size_t numBits = 0;
+		for (std::vector<bool> *codeWord : messagePtr) {
+			numBits += codeWord->size();
+		}
+
 		// Write length of file
-		size_t lengthOfMessage = message.size();
-		outFile.write(reinterpret_cast<const char *>(&lengthOfMessage),
+		outFile.write(reinterpret_cast<const char *>(&numBits),
 					  sizeof(size_t));
 
+		size_t numBytes = std::ceil((float) numBits / std::numeric_limits<unsigned char>::digits);
+
 		// Write memory to file
-		size_t numBytes = std::ceil((float) message.size() / std::numeric_limits<unsigned char>::digits);
 		char *mem = new char[numBytes]();
 		getMessageAsCharArray(mem);
 		
@@ -41,17 +47,20 @@ private:
 		delete[] mem;
 	}
 
+
 	void getMessageAsCharArray(char *mem) {
-		// Fill Memory
-		unsigned char counter = 0;
+		unsigned int counter = 0;
 		char *currentChar = mem;
-		for (bool b : message) {
-			if (counter == std::numeric_limits<unsigned char>::digits) {
-				++currentChar;
-				counter = 0;
+
+		for (std::vector<bool> *codeWord : messagePtr) {
+			for (bool b : *codeWord) {
+				if (counter == std::numeric_limits<unsigned char>::digits) {
+					++currentChar;
+					counter = 0;
+				}
+				appendToChar(currentChar, b);
+				++counter;
 			}
-			appendToChar(currentChar, b);
-			++counter;
 		}
 
 		if (counter < std::numeric_limits<unsigned char>::digits) {
@@ -68,12 +77,13 @@ private:
 		}
 	}
 
+
 public:
     BinFileWriter() = delete;
 
     BinFileWriter(std::string fileName)
             : outFile(fileName, std::ios::out | std::ios::binary) {
-		message = std::vector<bool>();
+		messagePtr = std::vector<std::vector<bool> *>();
     }
 
     ~BinFileWriter() {
@@ -82,22 +92,9 @@ public:
     }
 
 
-    void append(const std::string characterSymbol) {
-		std::vector<bool> bits;
-
-		for (char c : characterSymbol) {
-			bits.push_back(c == '1'? true : false);
-		}
-
-        append(bits);
-    }
-
-    void append(const std::vector<bool> bits) {
-		for (bool b : bits) {
-			message.push_back(b);
-		}
-    }
-
+	void append(std::vector<bool> *bits) {
+		messagePtr.push_back(bits);
+	}
 };
 
 

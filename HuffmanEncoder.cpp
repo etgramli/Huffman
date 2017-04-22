@@ -119,7 +119,7 @@ void HuffmanEncoder::encodeFile(std::string inFileName, std::string outFileName)
 		// Write the character's symbol
 		//fileOutput << encodingTable[c] << " ";
 		std::vector<bool> *cBV = &encodingTable[c];
-		bfw.append(*cBV);
+		bfw.append(cBV);
 		
 		originalFileBits += std::numeric_limits<unsigned char>::digits;
 		huffmanFileBits += (*cBV).size();
