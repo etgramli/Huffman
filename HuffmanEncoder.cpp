@@ -21,11 +21,11 @@ struct nodecomp {
 };
 
 
-double HuffmanEncoder::avgCodeWordLenth(const std::unordered_map<char, int> occurences,
+double HuffmanEncoder::avgCodeWordLenth(const std::unordered_map<char, unsigned int> occurences,
 										unsigned int totalAmount) {
 	// Calculate the average code word length
 	double avgCodeWordLenth = 0.0;
-	for (std::pair<char, int> pair : occurences) {
+	for (std::pair<char, unsigned int> pair : occurences) {
 		double p = (double) pair.second / totalAmount;
 		size_t length = encodingTable[pair.first].size();
 
@@ -35,11 +35,11 @@ double HuffmanEncoder::avgCodeWordLenth(const std::unordered_map<char, int> occu
 	return avgCodeWordLenth;
 }
 
-double HuffmanEncoder::getEntropy(const std::unordered_map<char, int> occurences,
+double HuffmanEncoder::getEntropy(const std::unordered_map<char, unsigned int> occurences,
 								  unsigned int totalAmount) const {
 	double entropy = 0.0;
 
-	for (std::pair<char, int> pair : occurences) {
+	for (std::pair<char, unsigned int> pair : occurences) {
 		double p = (double)pair.second / totalAmount;
 		entropy = entropy + p * log2(p);
 	}
@@ -53,7 +53,7 @@ void HuffmanEncoder::buildHuffmanTree(const std::string inFileName) {
 	std::ifstream fileInput(inFileName, std::ifstream::in);
 
 	unsigned int totalAmount = 0;
-	std::unordered_map<char, int> occurence;
+	std::unordered_map<char, unsigned int> occurence;
 
 	char c;
 	while (fileInput.get(c)) {
@@ -81,11 +81,11 @@ void HuffmanEncoder::addToEncodingTable(GenericNode *const root) {
 	root->getEncodingTable(std::vector<bool>(), &encodingTable);
 }
 
-GenericNode* HuffmanEncoder::getHuffmanTree(const std::unordered_map<char, int> charOccurences) {
+GenericNode* HuffmanEncoder::getHuffmanTree(const std::unordered_map<char, unsigned int> charOccurences) {
 	std::multiset<GenericNode *, nodecomp> forest;
 
 	// Create a (leaf) node for all characters
-	for (std::pair<char, int> pair : charOccurences) {
+	for (std::pair<char, unsigned int> pair : charOccurences) {
 		forest.insert(new CharNode(pair.first, pair.second));
 	}
 

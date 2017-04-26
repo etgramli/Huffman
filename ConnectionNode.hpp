@@ -24,8 +24,6 @@ public:
 
 		this->lchild = lchild;
 		this->rchild = rchild;
-
-		this->occurence = this->lchild->getOccurence() + this->rchild->getOccurence();
 	}
 
 	~ConnectionNode() {
@@ -33,6 +31,9 @@ public:
 		delete rchild;
 	}
 
+	unsigned int getOccurence() const {
+		return this->lchild->getOccurence() + this->rchild->getOccurence();
+	}
 
 	void getEncodingTable(const std::vector<bool> symbolVector,
 						  std::unordered_map<char, std::vector<bool>> *map) const {

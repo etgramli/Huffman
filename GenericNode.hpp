@@ -11,14 +11,18 @@
 class GenericNode {
 
 protected:
-	int occurence;
+	const unsigned int occurence;
 
+
+protected:
+	GenericNode() : occurence(0) {};
+	GenericNode(const unsigned int occurence) : occurence(occurence) {};
 
 public:
 	virtual ~GenericNode() {};
 
 
-	int getOccurence() const {
+	virtual unsigned int getOccurence() const {
 		return occurence;
 	}
 
@@ -27,11 +31,11 @@ public:
 
 
 	virtual bool operator< (const GenericNode &otherNode) const {
-		return this->occurence < otherNode.getOccurence();
+		return this->getOccurence() < otherNode.getOccurence();
 	}
 
 	virtual bool operator> (const GenericNode &otherNode) const {
-		return this->occurence > otherNode.getOccurence();
+		return this->getOccurence() > otherNode.getOccurence();
 	}
 
 };
