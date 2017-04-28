@@ -4,7 +4,7 @@
 #include <map>
 
 
-#include <iostream>
+#include <iterator>
 #include <fstream>
 #include <string>
 
@@ -23,11 +23,10 @@ inline bool instanceof(const T *ptr) {
 // Generates the subtree that begins with the specified prefix
 // Can be called recursively by adding a bit and generating subtrees for that
 GenericNode* HuffmanDecoder::getSubTree(const std::vector<bool> prefix) const {
-	std::map<std::vector<bool>, char> subMap(encodingTable.lower_bound(prefix),
-											 encodingTable.upper_bound(prefix));
-	if (subMap.size() == 1) {
+	std::map<std::vector<bool>, char>::const_iterator low = encodingTable.lower_bound(prefix);
+	if (std::distance(low, encodingTable.upper_bound(prefix)) == 1) {
 		// Occurence does not matter here
-		return new CharNode(subMap.begin()->second, 0);
+		return new CharNode(low->second, 0);
 	}
 	
 
