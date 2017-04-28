@@ -27,6 +27,10 @@ public:
 		(*map).emplace(representedCharacter, symbolVector);
 	}
 
+	char getChar() const {
+		return representedCharacter;
+	}
+
 };
 
 

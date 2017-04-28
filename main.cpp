@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
 
 	if (dFlag) {
 		HuffmanDecoder huffDec;
-		huffDec.decodeFile(huffmanFilePath, inFilePath, outFilePath);
+		huffDec.decode(huffmanFilePath, inFilePath, outFilePath);
 	} else {
 
 		HuffmanEncoder huffEnc;
