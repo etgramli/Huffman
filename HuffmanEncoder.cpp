@@ -41,7 +41,7 @@ double HuffmanEncoder::getEntropy(const std::unordered_map<char, unsigned int> o
 
 	for (std::pair<char, unsigned int> pair : occurences) {
 		double p = (double)pair.second / totalAmount;
-		entropy = entropy + p * log2(p);
+		entropy += p * log2(p);
 	}
 
 	return -entropy;
@@ -102,10 +102,8 @@ GenericNode* HuffmanEncoder::getHuffmanTree(const std::unordered_map<char, unsig
 	return *forest.begin(); // Return last Node = Root node
 }
 
-// Complete
 void HuffmanEncoder::encodeFile(const std::string inFileName, const std::string outFileName) {
 	std::ifstream fileInput(inFileName, std::ifstream::in);
-	//std::ofstream fileOutput(outFileName, std::ofstream::out);
 
 	BinFileWriter bfw(outFileName);
 
@@ -117,7 +115,6 @@ void HuffmanEncoder::encodeFile(const std::string inFileName, const std::string 
 	char c;
 	while (fileInput.get(c)) {
 		// Write the character's symbol
-		//fileOutput << encodingTable[c] << " ";
 		std::vector<bool> *cBV = &encodingTable[c];
 		bfw.append(cBV);
 		
@@ -129,7 +126,6 @@ void HuffmanEncoder::encodeFile(const std::string inFileName, const std::string 
 	std::cout << "in/out:\t\t\t" << (double)originalFileBits/huffmanFileBits << std::endl;
 
 	fileInput.close();
-	//fileOutput.close();
 }
 
 void HuffmanEncoder::writeHuffmanCodeToFile(const std::string huffmanFileName) {
@@ -145,3 +141,4 @@ void HuffmanEncoder::writeHuffmanCodeToFile(const std::string huffmanFileName) {
 
 	fileOutput.close();
 }
+
