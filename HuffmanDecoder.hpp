@@ -13,7 +13,17 @@
 
 class HuffmanDecoder {
 private:
+
+	GenericNode *root;
+	GenericNode *currentNode;
 	std::map<std::vector<bool>, char> encodingTable;
+
+	std::vector<char> message;
+
+	GenericNode* getSubTree(const std::vector<bool> prefix) const;
+	GenericNode* buildHuffmanTreeFromEncodingTable(const std::map<std::vector<bool>, char> encodingTable) const;
+
+	GenericNode *traverseTree(const bool bit);
 
 	// Reads and parses the file with the huffman code table and writes
 	// it to the encodingTable.
@@ -23,6 +33,18 @@ private:
 
 
 public:
+	HuffmanDecoder() {
+		currentNode = nullptr;
+		root = nullptr;
+	}
+
+	~HuffmanDecoder() {
+		currentNode = nullptr;
+		if (root != nullptr) {
+			delete root;
+		}
+	}
+
 	/*
 	 * Reads the encoding table and decodes the text file accordingly.
 	 * huffmanCodeFile		The file with the huffman code
@@ -31,7 +53,9 @@ public:
 							the huffman code specified in huffmanCodeFile.
 	 * outFile				The file to write the original file to.
 	 */
-	void decodeFile(std::string huffmanCodeFile, std::string huffmanEncodedFile, std::string outFile);
+	void decode(const std::string huffmanCodeFile,
+				const std::string inFileName,
+				const std::string outFileName);
 
 };
 

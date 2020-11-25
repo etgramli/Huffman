@@ -47,6 +47,14 @@ public:
 		rchild->getEncodingTable(rVector, map);
 	}
 
+	GenericNode* getLeftChild() const {
+		return lchild;
+	}
+	
+	GenericNode* getRightChild() const {
+		return rchild;
+	}
+
 };
 
 

@@ -49,7 +49,7 @@ private:
 
 public:
     BinFileReader() = delete;
-    BinFileReader(std::string fileName) {
+    BinFileReader(const std::string fileName) {
 		std::ifstream inputFile(fileName, std::ios::in | std::ios::binary);
 		inputFile.seekg(0, inputFile.beg);
 
