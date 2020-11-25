@@ -57,23 +57,25 @@ Makes all targets above.
 
 ## Programm call
 The program takes following parameters:
+
 ### Parameters:
-- -h
-Print help.
+Option | Expected argument | Required | Example | Description
+-------|-------------------|----------|---------|------------
+-h     | \<none\>          | False    |                             | Prints help screen with command line options.
+-d     | \<none\>          | False    |                             | Decodes file, requires -i, -c and -o.
+-i     | \<file\>          | True     | /home/user/example.txt      | The file to create a Huffman Code for; or a code file when decompressing.
+-c     | \<file\>          | False    | /home/user/example.txt.huff | The file with the Huffman Code for the input file; required when decompressing.
+-o     | \<file\>          | True     | /home/user/example.code     | The file to to save the Huffman Code to; or uncompressed file when decompressing.
+-s     | \<none\>          | False    |                             | Silent; do not create a Huffman code file.
 
-- -i <file>
-The file to create a Huffman Code for
+### Example
+Assuming you have midsummernight.txt in your working directory.
 
-- -c <file>
-The file with the Huffman Code for the input file; results in only the 2nd pass
+#### Compressing
+./huffman -i midsummernight.txt -o midsummernight.code
 
-- -o <file>
-The file to to save the Huffman Code in
-
-- -s
-Silent; do not create a Huffman code file
-
-
+#### Uncompressing
+./huffman -d -i midsummernight.code -c midsummernight.txt.huff -o midsummernight-new.txt
 
 # Hints
 - Only text files supported for endcoding
