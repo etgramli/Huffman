@@ -11,31 +11,31 @@
 class GenericNode {
 
 protected:
-	const unsigned int occurence;
+	const unsigned int occurrence;
 
 
 protected:
-	GenericNode() : occurence(0) {};
-	GenericNode(const unsigned int occurence) : occurence(occurence) {};
+	GenericNode() : occurrence(0) {};
+	explicit GenericNode(const unsigned int occurrence) : occurrence(occurrence) {};
 
 public:
-	virtual ~GenericNode() {};
+	virtual ~GenericNode() = default;
 
 
-	virtual unsigned int getOccurence() const {
-		return occurence;
+	virtual unsigned int getOccurrence() const {
+		return occurrence;
 	}
 
-	virtual void getEncodingTable(const std::vector<bool> symbolVector,
+	virtual void getEncodingTable(std::vector<bool> symbolVector,
 								  std::unordered_map<char, std::vector<bool>> *map) const = 0;
 
 
 	virtual bool operator< (const GenericNode &otherNode) const {
-		return this->getOccurence() < otherNode.getOccurence();
+		return this->getOccurrence() < otherNode.getOccurrence();
 	}
 
 	virtual bool operator> (const GenericNode &otherNode) const {
-		return this->getOccurence() > otherNode.getOccurence();
+		return this->getOccurrence() > otherNode.getOccurrence();
 	}
 
 };

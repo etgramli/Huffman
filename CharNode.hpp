@@ -15,15 +15,16 @@ class CharNode : public GenericNode {
 private:
 	const char representedCharacter;
 
-	CharNode() = delete;
-
 public:
-	CharNode(const char character, const unsigned int occurence)
+
+    CharNode() = delete;
+
+    CharNode(const char character, const unsigned int occurence)
 		: GenericNode(occurence), representedCharacter(character) {}
 
 
 	void getEncodingTable(const std::vector<bool> symbolVector,
-						  std::unordered_map<char, std::vector<bool>> *map) const {
+						  std::unordered_map<char, std::vector<bool>> *map) const override {
 		(*map).emplace(representedCharacter, symbolVector);
 	}
 

@@ -25,7 +25,6 @@ int main(int argc, char* argv[]) {
         case 'h':
             printHelp();
             return 0;
-            break;
         case 'd':
             dFlag = true;
             break;
@@ -50,7 +49,6 @@ int main(int argc, char* argv[]) {
         default:
             printHelp();
             return 0;
-            break;
         }
     }
 

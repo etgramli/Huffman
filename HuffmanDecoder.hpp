@@ -18,18 +18,16 @@ private:
 	GenericNode *currentNode;
 	std::map<std::vector<bool>, char> encodingTable;
 
-	std::vector<char> message;
+	GenericNode* getSubTree(const std::vector<bool>& prefix) const;
+	GenericNode* buildHuffmanTreeFromEncodingTable(const std::map<std::vector<bool>, char>& encodingTable) const;
 
-	GenericNode* getSubTree(const std::vector<bool> prefix) const;
-	GenericNode* buildHuffmanTreeFromEncodingTable(const std::map<std::vector<bool>, char> encodingTable) const;
-
-	GenericNode *traverseTree(const bool bit);
+	GenericNode *traverseTree(bool bit);
 
 	// Reads and parses the file with the huffman code table and writes
 	// it to the encodingTable.
-	void readHuffmanCodeFile(std::string huffmanCodeFile);
+	void readHuffmanCodeFile(const std::string& huffmanCodeFile);
 
-	std::vector<bool> getBitVector(std::string str, unsigned int offset) const;
+	static std::vector<bool> getBitVector(const std::string& str, unsigned int offset) ;
 
 
 public:
@@ -40,9 +38,7 @@ public:
 
 	~HuffmanDecoder() {
 		currentNode = nullptr;
-		if (root != nullptr) {
-			delete root;
-		}
+		delete root;
 	}
 
 	/*
@@ -53,9 +49,7 @@ public:
 							the huffman code specified in huffmanCodeFile.
 	 * outFile				The file to write the original file to.
 	 */
-	void decode(const std::string huffmanCodeFile,
-				const std::string inFileName,
-				const std::string outFileName);
+	void decode(const std::string& huffmanCodeFile, const std::string& inFileName, const std::string& outFileName);
 
 };
 

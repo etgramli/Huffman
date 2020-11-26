@@ -1,8 +1,13 @@
+*.code
 *.gch
-*.txt
 *.huff
 *.out
+*.txt
 huffman
 huffmanClang
 huffmanO3
 huffmanOs
+
+misc.xml
+vcs.xml
+.idea

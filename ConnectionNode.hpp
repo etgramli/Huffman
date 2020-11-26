@@ -13,30 +13,30 @@ private:
 	GenericNode *lchild;
 	GenericNode *rchild;
 
-	ConnectionNode() = delete;
-
 
 public:
-	ConnectionNode(GenericNode *lchild, GenericNode *rchild) {
+    ConnectionNode() = delete;
+
+    ConnectionNode(GenericNode *lchild, GenericNode *rchild) {
 		if (lchild == nullptr || rchild == nullptr) {
-			throw "One child was null!!";
+			throw std::invalid_argument("One child was null!!");
 		}
 
 		this->lchild = lchild;
 		this->rchild = rchild;
 	}
 
-	~ConnectionNode() {
+	~ConnectionNode() override {
 		delete lchild;
 		delete rchild;
 	}
 
-	unsigned int getOccurence() const {
-		return this->lchild->getOccurence() + this->rchild->getOccurence();
+	unsigned int getOccurrence() const override {
+		return this->lchild->getOccurrence() + this->rchild->getOccurrence();
 	}
 
 	void getEncodingTable(const std::vector<bool> symbolVector,
-						  std::unordered_map<char, std::vector<bool>> *map) const {
+						  std::unordered_map<char, std::vector<bool>> *map) const override {
 		std::vector<bool> lVector(symbolVector);
 		lVector.push_back(false);
 
