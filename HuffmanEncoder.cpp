@@ -9,7 +9,6 @@
 #include <iostream>
 #include <fstream>
 #include <limits>
-#include <cctype>
 #include <cmath>
 
 
@@ -35,11 +34,11 @@ double HuffmanEncoder::avgCodeWordLenth(const std::unordered_map<char, unsigned 
 	return avgCodeWordLenth;
 }
 
-double HuffmanEncoder::getEntropy(const std::unordered_map<char, unsigned int> occurences,
+double HuffmanEncoder::getEntropy(const std::unordered_map<char, unsigned int> occurrences,
 								  unsigned int totalAmount) const {
 	double entropy = 0.0;
 
-	for (std::pair<char, unsigned int> pair : occurences) {
+	for (std::pair<char, unsigned int> pair : occurrences) {
 		double p = (double)pair.second / totalAmount;
 		entropy += p * log2(p);
 	}
@@ -49,30 +48,30 @@ double HuffmanEncoder::getEntropy(const std::unordered_map<char, unsigned int> o
 
 
 void HuffmanEncoder::buildHuffmanTree(const std::string inFileName) {
-	// 1: Count characters
 	std::ifstream fileInput(inFileName, std::ifstream::in);
 
 	unsigned int totalAmount = 0;
-	std::unordered_map<char, unsigned int> occurence;
+	std::unordered_map<char, unsigned int> occurrence;
 
+    // 1: Count characters
 	char c;
 	while (fileInput.get(c)) {
-		++occurence[c];
+		++occurrence[c];
 		++totalAmount;
 	}
 	fileInput.close();
 
 
 	// 2. Build Huffman tree according to the occurences
-	GenericNode *root = getHuffmanTree(occurence);
+	GenericNode *root = getHuffmanTree(occurrence);
 
 	// 3. Query the symbols for all characters (to write to file later)
 	addToEncodingTable(root);
 
 	
 	// CALCULATE AVERAGE CODE WORD LENGTH / ENTROPY
-	std::cout << "Entropy:\t\t" << getEntropy(occurence, totalAmount) << std::endl;
-	std::cout << "Avg Code word length:\t" << avgCodeWordLenth(occurence, totalAmount) << std::endl;
+	std::cout << "Entropy:\t\t" << getEntropy(occurrence, totalAmount) << std::endl;
+	std::cout << "Avg Code word length:\t" << avgCodeWordLenth(occurrence, totalAmount) << std::endl;
 
 	delete root;
 }
@@ -81,11 +80,11 @@ void HuffmanEncoder::addToEncodingTable(GenericNode *const root) {
 	root->getEncodingTable(std::vector<bool>(), &encodingTable);
 }
 
-GenericNode* HuffmanEncoder::getHuffmanTree(const std::unordered_map<char, unsigned int> charOccurences) {
+GenericNode* HuffmanEncoder::getHuffmanTree(const std::unordered_map<char, unsigned int> charOccurrences) {
 	std::multiset<GenericNode *, nodecomp> forest;
 
 	// Create a (leaf) node for all characters
-	for (std::pair<char, unsigned int> pair : charOccurences) {
+	for (std::pair<char, unsigned int> pair : charOccurrences) {
 		forest.insert(new CharNode(pair.first, pair.second));
 	}
 
@@ -108,7 +107,7 @@ void HuffmanEncoder::encodeFile(const std::string inFileName, const std::string 
 	BinFileWriter bfw(outFileName);
 
 
-	// CALCULATE SAVED SAPCE
+	// CALCULATE SAVED SPACE
 	unsigned int originalFileBits = 0;
 	unsigned int huffmanFileBits = 0;
 
@@ -141,4 +140,3 @@ void HuffmanEncoder::writeHuffmanCodeToFile(const std::string huffmanFileName) {
 
 	fileOutput.close();
 }
-

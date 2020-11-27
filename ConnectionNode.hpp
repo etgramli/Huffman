@@ -10,29 +10,29 @@
 
 class ConnectionNode : public GenericNode {
 private:
-	GenericNode *lchild;
-	GenericNode *rchild;
+	GenericNode * leftChild;
+	GenericNode *rightChild;
 
 
 public:
     ConnectionNode() = delete;
 
-    ConnectionNode(GenericNode *lchild, GenericNode *rchild) {
-		if (lchild == nullptr || rchild == nullptr) {
+    ConnectionNode(GenericNode *leftChild, GenericNode *rightChild) {
+		if (leftChild == nullptr || rightChild == nullptr) {
 			throw std::invalid_argument("One child was null!!");
 		}
 
-		this->lchild = lchild;
-		this->rchild = rchild;
+		this->leftChild = leftChild;
+		this->rightChild = rightChild;
 	}
 
 	~ConnectionNode() override {
-		delete lchild;
-		delete rchild;
+		delete leftChild;
+		delete rightChild;
 	}
 
 	unsigned int getOccurrence() const override {
-		return this->lchild->getOccurrence() + this->rchild->getOccurrence();
+		return leftChild->getOccurrence() + rightChild->getOccurrence();
 	}
 
 	void getEncodingTable(const std::vector<bool> symbolVector,
@@ -43,16 +43,16 @@ public:
 		std::vector<bool> rVector(symbolVector);
 		rVector.push_back(true);
 
-		lchild->getEncodingTable(lVector, map);
-		rchild->getEncodingTable(rVector, map);
+		leftChild->getEncodingTable(lVector, map);
+		rightChild->getEncodingTable(rVector, map);
 	}
 
 	GenericNode* getLeftChild() const {
-		return lchild;
+		return leftChild;
 	}
 	
 	GenericNode* getRightChild() const {
-		return rchild;
+		return rightChild;
 	}
 
 };

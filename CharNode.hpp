@@ -16,11 +16,10 @@ private:
 	const char representedCharacter;
 
 public:
-
     CharNode() = delete;
 
-    CharNode(const char character, const unsigned int occurence)
-		: GenericNode(occurence), representedCharacter(character) {}
+    CharNode(const char character, const unsigned int occurrence)
+		: GenericNode(occurrence), representedCharacter(character) {}
 
 
 	void getEncodingTable(const std::vector<bool> symbolVector,

@@ -25,11 +25,8 @@ GenericNode* HuffmanDecoder::getSubTree(const std::vector<bool>& prefix) const {
 	const auto low = encodingTable.lower_bound(prefix);
 	const auto upper = encodingTable.upper_bound(prefix);
 	if (std::distance(low, upper) == 1) {
-		// Occurrence does not matter here
-		return new CharNode(low->second, 0);
+		return new CharNode(low->second, 0);    // Occurrence does not matter here
 	}
-	
-
 	std::vector<bool> lowerPrefix = prefix;
 	lowerPrefix.push_back(false);
 	

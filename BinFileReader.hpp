@@ -16,7 +16,7 @@ private:
 
     std::vector<bool> message;
 
-	// Converts the memory to a vector of bools (directly to message)
+	// Converts the memory to a vector of booleans (directly to message)
 	void parseMessage(char *mem, size_t lengthInBits) {
 		char *currentByte = mem;
 		unsigned int bits = 0;

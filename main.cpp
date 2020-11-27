@@ -57,15 +57,11 @@ int main(int argc, char* argv[]) {
 		std::cerr << "No input file specified! Aborting." << std::endl;
 		return -1;
 	}
-	if (cFlag) {
-		// Keep the specified file name
-	} else {
+	if (!cFlag) {
 		huffmanFilePath = inFilePath + ".huff";
 	}
 	// Open the huffman code file (for input if file exists/output if file does not exist)
-	if (oFlag) {
-		// Keep file name to specified path
-	} else {
+	if (!oFlag) {
 		// Set file name to default path: <input file name>.out.txt
 		outFilePath = inFilePath + ".out";
 	}
@@ -76,7 +72,6 @@ int main(int argc, char* argv[]) {
 		HuffmanDecoder huffDec;
 		huffDec.decode(huffmanFilePath, inFilePath, outFilePath);
 	} else {
-
 		HuffmanEncoder huffEnc;
 		// Build Huffman tree & Generate encoding table
 		huffEnc.buildHuffmanTree(inFilePath);
